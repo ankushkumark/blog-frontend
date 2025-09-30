@@ -1,3 +1,13 @@
+import React, { useState, useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import CreatePost from "./pages/CreatePost";
+import Footer from "./components/Footer";
+import PostDetails from "./pages/PostDetails";
+
+// 🔒 PrivateRoute
 function PrivateRoute({ children }) {
   const token = localStorage.getItem("token");
   return token ? children : <Navigate to="/login" replace />;
