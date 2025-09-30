@@ -16,9 +16,10 @@ export default function Dashboard() {
   const [visiblePosts, setVisiblePosts] = useState(6);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
+  localStorage.removeItem("token");
+  navigate("/login", { replace: true }); 
+};
+
 
   // Dark Mode
   useEffect(() => {

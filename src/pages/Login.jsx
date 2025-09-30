@@ -19,7 +19,7 @@ export default function Login({ setIsAuth }) {
       const res = await api.post("/auth/login", form);
       localStorage.setItem("token", res.data.token);
 
-      setIsAuth(true);            // ✅ App.jsx ka auth update
+      setIsAuth(true);         
       navigate("/dashboard");     // ✅ Redirect to dashboard
     } catch (err) {
       setErrors(err.response?.data?.errors || [{ msg: "Invalid credentials" }]);

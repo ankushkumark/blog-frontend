@@ -1,14 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
-import CreatePost from "./pages/CreatePost";
-import Footer from "./components/Footer";
-import PostDetails from "./pages/PostDetails"; // ✅ import kiya
-
-function PrivateRoute({ children, isAuth }) {
-  return isAuth ? children : <Navigate to="/login" />;
+function PrivateRoute({ children }) {
+  const token = localStorage.getItem("token");
+  return token ? children : <Navigate to="/login" replace />;
 }
 
 export default function App() {
@@ -27,7 +19,7 @@ export default function App() {
           {/* Root redirect */}
           <Route
             path="/"
-            element={<Navigate to={isAuth ? "/dashboard" : "/login"} />}
+            element={<Navigate to={isAuth ? "/dashboard" : "/login"} replace />}
           />
 
           {/* Auth pages */}
@@ -38,7 +30,7 @@ export default function App() {
           <Route
             path="/dashboard"
             element={
-              <PrivateRoute isAuth={isAuth}>
+              <PrivateRoute>
                 <Dashboard />
               </PrivateRoute>
             }
@@ -48,17 +40,17 @@ export default function App() {
           <Route
             path="/create"
             element={
-              <PrivateRoute isAuth={isAuth}>
+              <PrivateRoute>
                 <CreatePost />
               </PrivateRoute>
             }
           />
 
-          {/* ✅ Post Details (protected) */}
+          {/* Post Details (protected) */}
           <Route
             path="/posts/:id"
             element={
-              <PrivateRoute isAuth={isAuth}>
+              <PrivateRoute>
                 <PostDetails />
               </PrivateRoute>
             }
@@ -66,7 +58,7 @@ export default function App() {
         </Routes>
       </div>
 
-      {/* ✅ Footer har page par dikhna chahiye */}
+      {/* Footer har page par dikhna chahiye */}
       <Footer />
     </div>
   );
